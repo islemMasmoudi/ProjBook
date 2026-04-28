@@ -40,20 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container nav-container">
       <div class="logo">Book<span>Store</span></div>
 
-      <nav class="nav">
-        <a href="index.html">Accueil</a>
-        <a href="produits.html">Liste des Produits</a>
 
-        <div class="dropdown">
-          <span>Front Office ▾</span>
-          <div class="dropdown-menu">
-            <a href="login.html">Connexion</a>
-            <a href="register.html">Inscription</a>
-            <a href="commande.html">Commander</a>
-            <a href="profil.html">Profil</a>
-          </div>
-        </div>
-      </nav>
     </div>
   </header>
 

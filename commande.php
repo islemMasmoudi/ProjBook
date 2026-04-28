@@ -25,16 +25,15 @@ if (!isset($_SESSION["connecte"])) {
       <div class="logo">Book<span>Store</span></div>
 
       <nav class="nav">
-        <a href="index.html">Accueil</a>
-        <a href="livres.html">Liste des livres</a>
+        <a href="home.php">Accueil</a>
+        <a href="livres.php">Liste des livres</a>
+        <a href="panier.php">Panier 🛒</a>
 
         <div class="dropdown">
           <span>Front Office ▾</span>
           <div class="dropdown-menu">
-            <a href="login.html">Connexion</a>
-            <a href="register.html">Inscription</a>
-            <a href="commande.html">Commander</a>
-            <a href="profil.html">Profil</a>
+            <a href="commande.php">Commander</a>
+            <a href="profil.php">Profil</a>
           </div>
         </div>
       </nav>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome - BookStore</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Poppins, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* HEADER */
+        .header {
+            background: white;
+            padding: 15px 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #333;
+        }
+
+        /* MAIN LAYOUT (FIXED) */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 70px);
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+        }
+
+        .text {
+            width: 50%;
+        }
+
+        .text h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .text p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            margin-right: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+            background: #333;
+        }
+
+        .btn.secondary {
+            background: #555;
+        }
+
+        .image {
+            width: 45%;
+            text-align: center;
+        }
+
+        .image img {
+            max-width: 90%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">Book<span>Store</span></div>
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <div class="text">
+            <h1>Bienvenue sur BookStore 📚</h1>
+
+            <p>
+                Découvrez notre plateforme dédiée aux passionnés de lecture.
+                BookStore vous permet d’explorer une large sélection de livres,
+                de commander facilement et de gérer votre profil en toute simplicité.
+                Rejoignez-nous pour vivre une expérience de lecture moderne et agréable.
+            </p>
+
+            <div class="buttons">
+                <a class="btn" href="login.php">Se connecter</a>
+                <a class="btn secondary" href="register.php">Créer un compte</a>
+            </div>
+        </div>
+
+        <div class="image">
+            <img src="book.png" alt="Books Image">
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -43,20 +43,7 @@ if (isset($_POST['login'])) {
     <div class="container nav-container">
       <div class="logo">Book<span>Store</span></div>
 
-      <nav class="nav">
-        <a href="index.php">Accueil</a>
-        <a href="produits.php">Liste des Produits</a>
 
-        <div class="dropdown">
-          <span>Front Office ▾</span>
-          <div class="dropdown-menu">
-            <a href="login.php">Connexion</a>
-            <a href="register.php">Inscription</a>
-            <a href="commande.php">Commander</a>
-            <a href="profil.php">Profil</a>
-          </div>
-        </div>
-      </nav>
     </div>
   </header>
 

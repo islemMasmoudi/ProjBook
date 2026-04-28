@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
 <?php
 session_start();
 
@@ -9,9 +7,13 @@ if (!isset($_SESSION["connecte"])) {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <title>Liste des livres</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -23,16 +25,15 @@ if (!isset($_SESSION["connecte"])) {
       <div class="logo">Book<span>Store</span></div>
 
       <nav class="nav">
-        <a href="index.html">Accueil</a>
-        <a href="livres.html">Liste des livres</a>
+        <a href="home.php">Accueil</a>
+        <a href="livres.php">Liste des livres</a>
+        <a href="panier.php">Panier 🛒</a>
 
         <div class="dropdown">
           <span>Front Office ▾</span>
           <div class="dropdown-menu">
-            <a href="login.html">Connexion</a>
-            <a href="register.html">Inscription</a>
-            <a href="commande.html">Commander</a>
-            <a href="profil.html">Profil</a>
+            <a href="commande.php">Commander</a>
+            <a href="profil.php">Profil</a>
           </div>
         </div>
       </nav>
@@ -50,7 +51,13 @@ if (!isset($_SESSION["connecte"])) {
           <h3>Atomic Habits</h3>
           <p>James Clear</p>
           <span>30 DT</span>
-          <button>Acheter</button>
+
+          <form method="POST" action="panier.php">
+            <input type="hidden" name="title" value="Atomic Habits">
+            <input type="hidden" name="price" value="30">
+            <button type="submit" name="add">Ajouter au panier</button>
+          </form>
+
         </div>
       </div>
 
@@ -60,7 +67,13 @@ if (!isset($_SESSION["connecte"])) {
           <h3>The Alchemist</h3>
           <p>Paulo Coelho</p>
           <span>25 DT</span>
-          <button>Acheter</button>
+
+          <form method="POST" action="panier.php">
+            <input type="hidden" name="title" value="The Alchemist">
+            <input type="hidden" name="price" value="25">
+            <button type="submit" name="add">Ajouter au panier</button>
+          </form>
+
         </div>
       </div>
 
@@ -70,7 +83,13 @@ if (!isset($_SESSION["connecte"])) {
           <h3>Rich Dad Poor Dad</h3>
           <p>Robert Kiyosaki</p>
           <span>28 DT</span>
-          <button>Acheter</button>
+
+          <form method="POST" action="panier.php">
+            <input type="hidden" name="title" value="Rich Dad Poor Dad">
+            <input type="hidden" name="price" value="28">
+            <button type="submit" name="add">Ajouter au panier</button>
+          </form>
+
         </div>
       </div>
 
@@ -80,7 +99,13 @@ if (!isset($_SESSION["connecte"])) {
           <h3>Think and Grow Rich</h3>
           <p>Napoleon Hill</p>
           <span>27 DT</span>
-          <button>Acheter</button>
+
+          <form method="POST" action="panier.php">
+            <input type="hidden" name="title" value="Think and Grow Rich">
+            <input type="hidden" name="price" value="27">
+            <button type="submit" name="add">Ajouter au panier</button>
+          </form>
+
         </div>
       </div>
 
@@ -90,7 +115,13 @@ if (!isset($_SESSION["connecte"])) {
           <h3>Deep Work</h3>
           <p>Cal Newport</p>
           <span>32 DT</span>
-          <button>Acheter</button>
+
+          <form method="POST" action="panier.php">
+            <input type="hidden" name="title" value="Deep Work">
+            <input type="hidden" name="price" value="32">
+            <button type="submit" name="add">Ajouter au panier</button>
+          </form>
+
         </div>
       </div>
 
@@ -100,7 +131,17 @@ if (!isset($_SESSION["connecte"])) {
           <h3>Start With Why</h3>
           <p>Simon Sinek</p>
           <span>29 DT</span>
-          <button>Acheter</button>
+
+          <form method="POST" action="panier.php">
+
+            <input type="hidden" name="title" value="Atomic Habits">
+            <input type="hidden" name="price" value="30">
+            <input type="hidden" name="image" value="https://images.unsplash.com/photo-1544947950-fa07a98d237f">
+
+            <button type="submit" name="add">Ajouter au panier</button>
+
+          </form>
+
         </div>
       </div>
 
