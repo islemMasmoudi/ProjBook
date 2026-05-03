@@ -42,7 +42,7 @@ if (!isset($_SESSION["connecte"])) {
     <div class="container">
       <h1>Bienvenue dans notre librairie</h1>
       <p>Découvrez et commandez vos livres en ligne facilement</p>
-      <a href="livres.html" class="btn">Explorer les livres</a>
+      <a href="livres.php" class="btn">Explorer les livres</a>
     </div>
   </section>
 

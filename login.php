@@ -14,7 +14,7 @@ if (isset($_POST['login'])) {
 
     if ($data) {
       $_SESSION["connecte"] = "1";
-      $_SESSION["user"] = $data["user"];
+      $_SESSION["login"] = $data["login"];
       header("Location: home.php");
       exit();
     } else {
