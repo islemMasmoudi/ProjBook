@@ -9,19 +9,19 @@ if (!isset($_SESSION["connecte"])) {
 }
 require_once('../classes/Utilisateur.php');
 
-$user=new Utilisateur();
-$user->id=$_SESSION['user']['id'];
-$user->nom=$_SESSION['user']['nom'];
-$user->email=$_SESSION['user']['email'];
-$user->pwd=$_SESSION['user']['pwd'];
-$user->role=$_SESSION['user']['role'];
+$user = new Utilisateur();
+$user->id = $_SESSION['user']['id'];
+$user->nom = $_SESSION['user']['nom'];
+$user->email = $_SESSION['user']['email'];
+$user->pwd = $_SESSION['user']['pwd'];
+$user->role = $_SESSION['user']['role'];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["modifier"])) {
-    $user->modifierProfil($_POST["nom"], $_POST["email"], $_POST["pwd"]);
-    $_SESSION['user']['nom']=$_POST["nom"];
-    $_SESSION['user']['email']=$_POST["email"];
-    $_SESSION['user']['pwd']=$_POST["pwd"];
-    echo "<p>mise a jour avec succès</p>";
+  $user->modifierProfil($_POST["nom"], $_POST["email"], $_POST["pwd"]);
+  $_SESSION['user']['nom'] = $_POST["nom"];
+  $_SESSION['user']['email'] = $_POST["email"];
+  $_SESSION['user']['pwd'] = $_POST["pwd"];
+  echo "<p>mise a jour avec succès</p>";
 }
 ?>
 
@@ -39,11 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["modifier"])) {
       <nav class="nav">
         <a href="home.php">Accueil</a>
         <a href="livres.php">Liste des livres</a>
-        <a href="panier.php">Panier 🛒</a>
+        <a href="../panier.php">Panier 🛒</a>
         <div class="dropdown">
           <span>Front Office ▾</span>
           <div class="dropdown-menu">
-            <a href="commande.php">Commander</a>
+            <a href="../commande.php">Commander</a>
             <a href="profil.php">Profil</a>
             <a href="déconnecter.php">Déconnecter</a>
           </div>
@@ -69,4 +69,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["modifier"])) {
   </footer>
 
 </body>
+
 </html>

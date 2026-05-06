@@ -169,14 +169,16 @@ if (isset($_POST["valider"])) {
     <div class="container nav-container">
       <div class="logo">Book<span>Store</span></div>
       <nav class="nav">
-        <a href="home.php">Accueil</a>
-        <a href="livres.php">Liste des livres</a>
+        <a href="front/home.php">Accueil</a>
+        <a href="front/livres.php">Liste des livres</a>
         <a href="panier.php">Panier 🛒</a>
         <div class="dropdown">
           <span>Front Office ▾</span>
           <div class="dropdown-menu">
             <a href="commande.php">Commander</a>
-            <a href="profil.php">Profil</a>
+            <a href="front/profil.php">Profil</a>
+            <a href="déconnecter.php">Déconnecter</a>
+
           </div>
         </div>
       </nav>

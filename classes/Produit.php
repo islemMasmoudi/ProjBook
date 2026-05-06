@@ -1,5 +1,6 @@
 <?php
-class Produit {
+class Produit
+{
     public $id;
     public $titre;
     public $auteur;
@@ -7,27 +8,31 @@ class Produit {
     public $image;
     public $desc;
 
-    public function ajouterProd($titre, $auteur, $prix, $image, $desc) {
+    public function ajouterProd($titre, $auteur, $prix, $image, $desc)
+    {
         require_once('../Cnx.php');
-        $cnx=new Cnx();
-        $pdo=$cnx->CNXbase();
-        $req="INSERT INTO produits (titre,auteur,prix,image,description) VALUES ('$this->titre','$this->auteur','$this->prix','$this->image','$this->desc')";
-        $pdo->exec($req) or print_r($pdo->errorInfo());
+        $cnx = new Cnx();
+        $pdo = $cnx->CNXbase();
+        $req = $pdo->prepare("INSERT INTO produits (titre, auteur, prix, image, description) VALUES (?, ?, ?, ?, ?)");
+        $req->execute([$titre, $auteur, $prix, $image, $desc]);
     }
 
-    public function listerProd() {
+    public function listerProd()
+    {
         require_once('../Cnx.php');
-        $cnx=new Cnx();
-        $pdo=$cnx->CNXbase();
-        $req="SELECT * FROM produits";
-        return $pdo->query($req);
+        $cnx = new Cnx();
+        $pdo = $cnx->CNXbase();
+        $stmt = $pdo->query("SELECT * FROM produits");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function supprimeProd($id) {
+
+    public function supprimeProd($id)
+    {
         require_once('../Cnx.php');
-        $cnx=new Cnx();
-        $pdo=$cnx->CNXbase();
-        $req="DELETE FROM produits WHERE id=$id";
-        $pdo->exec($req) or print_r($pdo->errorInfo());
+        $cnx = new Cnx();
+        $pdo = $cnx->CNXbase();
+        $req = $pdo->prepare("DELETE FROM produits WHERE id = ?");
+        $req->execute([$id]);
     }
 }
 ?>

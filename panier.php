@@ -1,42 +1,52 @@
 <?php
 session_start();
-if (!isset($_SESSION["panier"])) {
-    $_SESSION["panier"] = [];
+
+if (!isset($_SESSION["connecte"])) {
+    header("Location: front/login.php");
+    exit();
 }
 
-if (isset($_POST["add"])) {
-    $_SESSION["panier"][] = [
-        "title" => $_POST["title"],
-        "price" => $_POST["price"],
-        "image" => isset($_POST["image"]) ? $_POST["image"] : ""
-    ];
+if (isset($_POST['add'])) {
+    if (!isset($_SESSION['panier'])) {
+        $_SESSION['panier'] = [];
+    }
+    $titre = $_POST['title'];
+    $prix = $_POST['price'];
+    $image = $_POST['image'];
+
+    $produitExiste = false;
+    foreach ($_SESSION['panier'] as &$produit) {
+        if ($produit['titre'] == $titre) {
+            $produit['quantite']++;
+            $produitExiste = true;
+            break;
+        }
+    }
+    if (!$produitExiste) {
+        $_SESSION['panier'][] = [
+            'titre' => $titre,
+            'prix' => $prix,
+            'image' => $image,
+            'quantite' => 1
+        ];
+    }
     header("Location: panier.php");
     exit();
 }
 
-if (isset($_POST["remove"])) {
-    $index = $_POST["index"];
-    unset($_SESSION["panier"][$index]);
-    $_SESSION["panier"] = array_values($_SESSION["panier"]);
+// Handle remove
+if (isset($_POST['remove']) && isset($_POST['index'])) {
+    array_splice($_SESSION['panier'], (int) $_POST['index'], 1);
     header("Location: panier.php");
     exit();
 }
-
-$book_images = [
-    "Atomic Habits" => "https://images.unsplash.com/photo-1544947950-fa07a98d237f",
-    "The Alchemist" => "https://images.unsplash.com/photo-1512820790803-83ca734da794",
-    "Rich Dad Poor Dad" => "https://images.unsplash.com/photo-1495446815901-a7297e633e8d",
-    "Think and Grow Rich" => "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f",
-    "Deep Work" => "https://images.unsplash.com/photo-1519681393784-d120267933ba",
-    "Start With Why" => "https://images.unsplash.com/photo-1516979187457-637abb4f9353",
-];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <title>Panier</title>
+    <title>Panier - BookStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -88,6 +98,11 @@ $book_images = [
             font-weight: 600;
         }
 
+        .panier-card-body .qty {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
         .panier-card-body .btn-remove {
             margin-top: auto;
             padding: 0.45rem 0;
@@ -122,6 +137,28 @@ $book_images = [
             font-weight: 600;
             color: #2d2d2d;
         }
+
+        .acheter-btn {
+            display: block;
+            margin: 2rem auto 0;
+            padding: 0.9rem 2.2rem;
+            background: #e07b39;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(224, 123, 57, 0.25);
+        }
+
+        .acheter-btn:hover {
+            background: #c96528;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(224, 123, 57, 0.35);
+        }
     </style>
 </head>
 
@@ -131,14 +168,15 @@ $book_images = [
         <div class="container nav-container">
             <div class="logo">Book<span>Store</span></div>
             <nav class="nav">
-                <a href="home.php">Accueil</a>
-                <a href="livres.php">Liste des livres</a>
+                <a href="front/home.php">Accueil</a>
+                <a href="front/livres.php">Liste des livres</a>
                 <a href="panier.php">Panier 🛒</a>
                 <div class="dropdown">
                     <span>Front Office ▾</span>
                     <div class="dropdown-menu">
                         <a href="commande.php">Commander</a>
-                        <a href="profil.php">Profil</a>
+                        <a href="front/profil.php">Profil</a>
+                        <a href="déconnecter.php">Déconnecter</a>
                     </div>
                 </div>
             </nav>
@@ -153,17 +191,12 @@ $book_images = [
         <?php else: ?>
             <div class="panier-grid">
                 <?php foreach ($_SESSION["panier"] as $index => $item): ?>
-                    <?php
-                    $title = $item["title"];
-                    $img = !empty($item["image"])
-                        ? $item["image"]
-                        : (isset($book_images[$title]) ? $book_images[$title] : "https://images.unsplash.com/photo-1544947950-fa07a98d237f");
-                    ?>
                     <div class="panier-card">
-                        <img src="<?= htmlspecialchars($img) ?>" alt="<?= htmlspecialchars($title) ?>">
+                        <img src="<?= htmlspecialchars($item["image"]) ?>" alt="<?= htmlspecialchars($item["titre"]) ?>">
                         <div class="panier-card-body">
-                            <h3><?= htmlspecialchars($title) ?></h3>
-                            <span class="price"><?= htmlspecialchars($item["price"]) ?> DT</span>
+                            <h3><?= htmlspecialchars($item["titre"]) ?></h3>
+                            <span class="price"><?= htmlspecialchars($item["prix"]) ?> DT</span>
+                            <span class="qty">Quantité : <?= (int) $item["quantite"] ?></span>
                             <form method="POST">
                                 <input type="hidden" name="index" value="<?= $index ?>">
                                 <button class="btn-remove" name="remove">🗑 Supprimer</button>
@@ -173,13 +206,20 @@ $book_images = [
                 <?php endforeach; ?>
             </div>
 
-            <?php $total = array_sum(array_column($_SESSION["panier"], "price")); ?>
+            <?php
+            $total = 0;
+            foreach ($_SESSION["panier"] as $item) {
+                $total += $item["prix"] * $item["quantite"];
+            }
+            ?>
             <div class="panier-total">
-                Total : <?= $total ?> DT
+                Total : <?= number_format($total, 2) ?> DT
             </div>
         <?php endif; ?>
     </section>
-
+    <a href="front/formulaire.php">
+        <button class="acheter-btn">Acheter</button>
+    </a>
     <footer class="footer">
         <p>© 2026 BookStore</p>
     </footer>

@@ -2,22 +2,22 @@
 session_start();
 require_once('../classes/Utilisateur.php');
 
-if ($_SERVER["REQUEST_METHOD"]==="POST") {
-    $us=new Utilisateur();
-    $user = $us->connecter($_POST["email"], $_POST["pwd"]);
-    if ($user) {
-        $_SESSION["connecte"]=true;
-        $_SESSION["user"]=$user;
-        
-        if ($_SESSION["user"]["role"]=="admin") {
-            header("Location: admin_home.php");
-        } else {
-            header("Location: home.php");
-        }
-        exit();
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $us = new Utilisateur();
+  $user = $us->connecter($_POST["email"], $_POST["pwd"]);
+  if ($user) {
+    $_SESSION["connecte"] = true;
+    $_SESSION["user"] = $user;
+
+    if ($_SESSION["user"]["role"] == "admin") {
+      header("Location: admin_home.php");
     } else {
-        $message="Email ou mot de passe incorrect.";
+      header("Location: home.php");
     }
+    exit();
+  } else {
+    $message = "Email ou mot de passe incorrect.";
+  }
 }
 ?>
 
