@@ -3,8 +3,6 @@ session_start();
 
 require_once("../Cnx.php");
 
-
-
 if (!isset($_SESSION["panier"]) || empty($_SESSION["panier"])) {
     header("Location: panier.php");
     exit();
@@ -12,7 +10,6 @@ if (!isset($_SESSION["panier"]) || empty($_SESSION["panier"])) {
 
 $cnx = new Cnx();
 $pdo = $cnx->CNXbase();
-
 
 if (isset($_POST["annuler"])) {
     header("Location: home.php");
@@ -25,22 +22,17 @@ if (isset($_POST["ok"])) {
     $adresse = $_POST["adresse"];
     $date = date("Y-m-d H:i:s");
 
-    $sql = "INSERT INTO commandes 
-            (quantite, date, nom_client, adresse, prix)
-            VALUES 
-            (:quantite, :date_cmd, :nom_client, :adresse, :prix)";
-
-    $stmt = $pdo->prepare($sql);
-
     foreach ($_SESSION["panier"] as $item) {
 
-        $stmt->execute([
-            ":quantite" => $item["quantite"],
-            ":date_cmd" => $date,
-            ":nom_client" => $nom,
-            ":adresse" => $adresse,
-            ":prix" => $item["prix"]
-        ]);
+        $quantite = $item["quantite"];
+        $prix = $item["prix"];
+
+        $sql = "INSERT INTO commandes 
+        (quantite, date, nom_client, adresse, prix)
+        VALUES 
+        ('$quantite', '$date', '$nom', '$adresse', '$prix')";
+
+        $pdo->exec($sql);
     }
 
     unset($_SESSION["panier"]);
@@ -57,14 +49,10 @@ if (isset($_POST["ok"])) {
     <meta charset="UTF-8">
     <title>Commande</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
 
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #f5f5f5;
-        }
-
         .container {
             width: 60%;
             margin: 40px auto;
@@ -107,6 +95,23 @@ if (isset($_POST["ok"])) {
 </head>
 
 <body>
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">Book<span>Store</span></div>
+            <nav class="nav">
+                <a href="home.php">Accueil</a>
+                <a href="livres.php">Liste des livres</a>
+                <a href="../panier.php">Panier 🛒</a>
+                <div class="dropdown">
+                    <span>Front Office ▾</span>
+                    <div class="dropdown-menu">
+                        <a href="profil.php">Profil</a>
+                        <a href="guest.html">Déconnecter</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
 
     <div class="container">
 

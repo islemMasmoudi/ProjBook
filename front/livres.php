@@ -7,14 +7,14 @@ if (!isset($_SESSION["connecte"])) {
 require_once('../classes/Produit.php');
 require_once('../classes/Panier.php');
 
-if (isset($_POST["add"])){
+if (isset($_POST["add"])) {
   $_SESSION["panier"][] = [
-  "id_produit" => $_POST["id_produit"],
-  "titre" => $_POST["title"],
-  "prix" => $_POST["price"],
-  "image" => $_POST["image"],
-  "quantite" => 1
-];
+    "id_produit" => $_POST["id_produit"],
+    "titre" => $_POST["title"],
+    "prix" => $_POST["price"],
+    "image" => $_POST["image"],
+    "quantite" => 1
+  ];
 
 }
 
@@ -29,7 +29,6 @@ $res = $p->listerProd();
 <head>
   <meta charset="UTF-8">
   <title>Liste des livres - BookStore</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
 </head>
 
@@ -44,9 +43,8 @@ $res = $p->listerProd();
         <div class="dropdown">
           <span>Front Office ▾</span>
           <div class="dropdown-menu">
-            <a href="../commande.php">Commander</a>
             <a href="profil.php">Profil</a>
-htmlspecialchars            <a href="déconnecter.php">Déconnecter</a>
+            htmlspecialchars <a href="guest.html">Déconnecter</a>
           </div>
         </div>
       </nav>
@@ -69,7 +67,6 @@ htmlspecialchars            <a href="déconnecter.php">Déconnecter</a>
               <input type="hidden" name="price" value="<?php echo htmlspecialchars($row['prix']); ?>">
               <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
               <button type="submit" name="add">Ajouter au panier</button><br>
-              <!-- <button type="submit" name="cmd">Commander</button> -->
             </form>
           </div>
         </div>

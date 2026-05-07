@@ -28,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["modifier"])) {
 <head>
   <meta charset="UTF-8">
   <title>Profil - BookStore</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
 </head>
 
@@ -43,9 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["modifier"])) {
         <div class="dropdown">
           <span>Front Office ▾</span>
           <div class="dropdown-menu">
-            <a href="../commande.php">Commander</a>
             <a href="profil.php">Profil</a>
-            <a href="déconnecter.php">Déconnecter</a>
+            <a href="guest.html">Déconnecter</a>
           </div>
         </div>
       </nav>

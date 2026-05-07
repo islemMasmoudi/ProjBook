@@ -33,9 +33,8 @@ $res = $p->listerProd();
         <div class="dropdown">
           <span>Front Office ▾</span>
           <div class="dropdown-menu">
-            <a href="../commande.php">Commander</a>
             <a href="profil.php">Profil</a>
-            <a href="déconnecter.php">Déconnecter</a>
+            <a href="guest.html">Déconnecter</a>
           </div>
         </div>
       </nav>
@@ -45,7 +44,10 @@ $res = $p->listerProd();
   <section class="products container">
     <h2>Livres populaires</h2>
     <div class="grid">
-      <?php foreach ($res as $row): ?>
+      <?php $i = 0;
+      foreach ($res as $row): ?>
+        <?php if ($i == 4)
+          break; ?>
         <div class="card">
           <img src="<?php echo $row['image']; ?>">
           <div class="card-body">
@@ -56,10 +58,10 @@ $res = $p->listerProd();
               <input type="hidden" name="title" value="<?php echo $row['titre']; ?>">
               <input type="hidden" name="price" value="<?php echo $row['prix']; ?>">
               <input type="hidden" name="image" value="<?php echo $row['image']; ?>">
-
             </form>
           </div>
         </div>
+        <?php $i++; ?>
       <?php endforeach; ?>
     </div>
   </section>

@@ -21,7 +21,6 @@ $succes = "";
 <head>
   <meta charset="UTF-8">
   <title>Commander</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
     .form-section {
@@ -148,7 +147,7 @@ $succes = "";
           <div class="dropdown-menu">
             <a href="commande.php">Commander</a>
             <a href="front/profil.php">Profil</a>
-            <a href="déconnecter.php">Déconnecter</a>
+            <a href="guest.html">Déconnecter</a>
 
           </div>
         </div>

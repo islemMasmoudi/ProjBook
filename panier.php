@@ -1,45 +1,7 @@
 <?php
-session_start();
 
-if (!isset($_SESSION["connecte"])) {
-    header("Location: front/login.php");
-    exit();
-}
+require_once('classes/Panier.php');
 
-if (isset($_POST['add'])) {
-    if (!isset($_SESSION['panier'])) {
-        $_SESSION['panier'] = [];
-    }
-    $titre = $_POST['title'];
-    $prix = $_POST['price'];
-    $image = $_POST['image'];
-
-    $produitExiste = false;
-    foreach ($_SESSION['panier'] as &$produit) {
-        if ($produit['titre'] == $titre) {
-            $produit['quantite']++;
-            $produitExiste = true;
-            break;
-        }
-    }
-    if (!$produitExiste) {
-        $_SESSION['panier'][] = [
-            'titre' => $titre,
-            'prix' => $prix,
-            'image' => $image,
-            'quantite' => 1
-        ];
-    }
-    header("Location: panier.php");
-    exit();
-}
-
-// Handle remove
-if (isset($_POST['remove']) && isset($_POST['index'])) {
-    array_splice($_SESSION['panier'], (int) $_POST['index'], 1);
-    header("Location: panier.php");
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -47,7 +9,6 @@ if (isset($_POST['remove']) && isset($_POST['index'])) {
 <head>
     <meta charset="UTF-8">
     <title>Panier - BookStore</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
         .panier-grid {
@@ -174,9 +135,8 @@ if (isset($_POST['remove']) && isset($_POST['index'])) {
                 <div class="dropdown">
                     <span>Front Office ▾</span>
                     <div class="dropdown-menu">
-                        <a href="commande.php">Commander</a>
                         <a href="front/profil.php">Profil</a>
-                        <a href="déconnecter.php">Déconnecter</a>
+                        <a href="guest.html">Déconnecter</a>
                     </div>
                 </div>
             </nav>
