@@ -4,15 +4,22 @@ if (!isset($_SESSION["connecte"])) {
   header("Location: login.php");
   exit();
 }
-$_SESSION["panier"][] = [
+require_once('../classes/Produit.php');
+require_once('../classes/Panier.php');
+
+if (isset($_POST["add"])){
+  $_SESSION["panier"][] = [
   "id_produit" => $_POST["id_produit"],
   "titre" => $_POST["title"],
   "prix" => $_POST["price"],
   "image" => $_POST["image"],
   "quantite" => 1
 ];
-require_once('../classes/Produit.php');
-require_once('../classes/Panier.php');
+
+}
+
+
+
 $p = new Produit();
 $res = $p->listerProd();
 ?>
@@ -39,7 +46,7 @@ $res = $p->listerProd();
           <div class="dropdown-menu">
             <a href="../commande.php">Commander</a>
             <a href="profil.php">Profil</a>
-            <a href="déconnecter.php">Déconnecter</a>
+htmlspecialchars            <a href="déconnecter.php">Déconnecter</a>
           </div>
         </div>
       </nav>
@@ -53,7 +60,7 @@ $res = $p->listerProd();
         <div class="card">
           <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['titre']); ?>">
           <div class="card-body">
-            <h3><?php echo htmlspecialchars($row['titre']); ?></h3>
+            <h3><?php echo ($row['titre']); ?></h3>
             <p><?php echo htmlspecialchars($row['auteur']); ?></p>
             <span><?php echo htmlspecialchars($row['prix']); ?> DT</span>
             <form method="post" action="../panier.php">
