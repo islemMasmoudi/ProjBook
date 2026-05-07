@@ -1,13 +1,22 @@
 <?php
 session_start();
+require_once('../classes/Produit.php');
 
 if (!isset($_SESSION["connecte"])) {
   header("Location: login.php");
   exit();
 }
-require_once('../classes/Produit.php');
+
 $p = new Produit();
 $res = $p->listerProd();
+
+
+if (isset($_SESSION["success"])) {
+    echo "<div class='msg-success'>" . $_SESSION["success"] . "</div>";
+    unset($_SESSION["success"]);
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -22,13 +31,16 @@ $res = $p->listerProd();
 <body>
 
   <header class="header">
-    <div class="container nav-container">
-      <div class="logo">Book<span>Store</span></div>
-
+      <div class="container nav-container">
+        <a href="home.php" class="logo-link">
+                <div class="logo">
+                    Book<span>Store</span>
+                </div>
+            </a>
       <nav class="nav">
         <a href="home.php">Accueil</a>
         <a href="livres.php">Liste des livres</a>
-        <a href="../panier.php">Panier 🛒</a>
+        <a href="panier.php">Panier 🛒</a>
 
         <div class="dropdown">
           <span>Front Office ▾</span>
@@ -40,6 +52,15 @@ $res = $p->listerProd();
       </nav>
     </div>
   </header>
+  
+   <section class="hero container">
+  <h1>Bienvenue à BookStore</h1>
+  <p>
+    Découvrez des livres populaires, développez vos connaissances
+    et profitez d'une expérience de lecture moderne.
+  </p>
+</section>
+
 
   <section class="products container">
     <h2>Livres populaires</h2>
@@ -58,6 +79,7 @@ $res = $p->listerProd();
               <input type="hidden" name="title" value="<?php echo $row['titre']; ?>">
               <input type="hidden" name="price" value="<?php echo $row['prix']; ?>">
               <input type="hidden" name="image" value="<?php echo $row['image']; ?>">
+              <button type="submit" name="add">Ajouter au panier</button>
             </form>
           </div>
         </div>

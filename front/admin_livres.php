@@ -32,30 +32,52 @@ $res=$p->listerProd();
 <body>
   <header class="header">
     <div class="container nav-container">
-      <div class="logo"><a href="admin_home.php" >BookStore - Admin</a></div>
-      <nav class="nav">
-        <!-- <a href="admin_livres.php">Gérer les livres</a> -->
-        <a href="déconnecter.php">Déconnecter</a>
-      </nav>
+      <div class="logo">
+        <a href="admin_home.php" class="logo-link">
+          Book<span>Store</span> Admin
+        </a>
+      </div>
+       <nav class="nav">
+      <a href="admin_home.php">Accueil</a>
+      <a href="admin_livres.php">Livres</a>
+      <a href="déconnecter.php" class="logout-btn">
+        Déconnecter
+      </a>
+    </nav>
     </div>
   </header>
+  <section class="admin-top container">
 
-  <section class="form-section">
-    <div class="form-box">
-      <h2>Ajouter un livre</h2>
-      <form method="POST" action="">
+  <div class="admin-title">
+    <h1>Gestion des livres</h1>
+
+    <p>
+      Ajoutez et supprimez les livres du catalogue.
+    </p>
+  </div>
+
+</section>
+
+  
+
+  <section class="admin-form-section container">
+  <div class="admin-form-card">
+    <h2>Ajouter un livre</h2>
+    <form method="POST" action="" class="admin-form">
+      <div class="form-grid">
         <input type="text" name="titre" placeholder="Titre" required>
         <input type="text" name="auteur" placeholder="Auteur" required>
         <input type="text" name="prix" placeholder="Prix" required>
         <input type="text" name="image" placeholder="URL image" required>
         <textarea name="description" placeholder="Description"></textarea>
         <button type="submit" name="ajouter">Ajouter</button>
+        </div>
       </form>
     </div>
   </section>
 
   <section class="products container">
-    <h2>Liste des livres</h2>
+    <h2 class="section-title">Catalogue des livres</h2>
     <div class="grid">
       <?php foreach ($res as $row): ?>
         <div class="card">
@@ -64,7 +86,7 @@ $res=$p->listerProd();
             <h3><?php echo $row['titre']; ?></h3>
             <p><?php echo $row['auteur']; ?></p>
             <span><?php echo $row['prix']; ?> DT</span>
-            <a href="admin_livres.php?delete=<?php echo $row['id']; ?>" class="btn">Supprimer</a>
+            <a href="admin_livres.php?delete=<?php echo $row['id']; ?>" class="delete-btn">Supprimer</a>
           </div>
         </div>
       <?php endforeach; ?>

@@ -3,14 +3,18 @@ session_start();
 require_once('../classes/Utilisateur.php');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $us = new Utilisateur();
-  $us->nom = $_POST["nom"];
-  $us->email = $_POST["email"];
-  $us->pwd = $_POST["pwd"];
-  $us->role = "user";
-  $us->inscrire();
-  header("Location: login.php");
-  exit();
+  if ($_POST["pwd"]!=$_POST["pwd2"]) {
+    $message="Les mots de passe ne correspondent pas.";
+  } else {
+    $us = new Utilisateur();
+    $us->nom = $_POST["nom"];
+    $us->email = $_POST["email"];
+    $us->pwd = $_POST["pwd"];
+    $us->role = "user";
+    $us->inscrire();
+    header("Location: login.php");
+    exit();
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -33,7 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="form-box">
       <h2>Inscription</h2>
 
-
+      <?php if (isset($message)) : ?>
+        <p style="color: red; margin-bottom: 15px; font-weight: 500;">
+          <?php echo $message; ?>
+        </p>
+      <?php endif; ?>
 
       <form method="POST" action="">
         <input type="text" name="nom" placeholder="Nom complet" required>

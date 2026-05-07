@@ -43,14 +43,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <section class="form-section">
     <div class="form-box">
       <h2>Connexion</h2>
-
+      <?php if (isset($message)) : ?>
+        <p style="color: red; margin-bottom: 15px; font-weight: 500;">
+          <?php echo $message; ?>
+        </p>
+      <?php endif; ?>
       <form method="POST" action="">
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="pwd" placeholder="Mot de passe" required>
         <button type="submit">Se connecter</button>
       </form>
 
-      <p class="form-link">Pas de compte?<a href="register.php">S'inscrire</a></p>
+      <p class="form-link">Pas de compte? <a href="register.php">S'inscrire</a></p>
     </div>
   </section>
 

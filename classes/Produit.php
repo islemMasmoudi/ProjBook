@@ -13,10 +13,8 @@ class Produit
         require_once('../Cnx.php');
         $cnx = new Cnx();
         $pdo = $cnx->CNXbase();
-        $req = $pdo->prepare("INSERT INTO produits (titre, auteur, prix, image, description) VALUES (?, ?, ?, ?, ?)");
-        $req->execute([$titre, $auteur, $prix, $image, $desc]);
+        $pdo->exec("INSERT INTO produits (titre, prix) VALUES ('$titre', '$prix')");
     }
-
     public function listerProd()
     {
         require_once('../Cnx.php');
@@ -31,8 +29,8 @@ class Produit
         require_once('../Cnx.php');
         $cnx = new Cnx();
         $pdo = $cnx->CNXbase();
-        $req = $pdo->prepare("DELETE FROM produits WHERE id = ?");
-        $req->execute([$id]);
+        $pdo->exec("DELETE FROM produits WHERE id = $id");
+        
     }
 }
 ?>

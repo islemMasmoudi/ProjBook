@@ -16,12 +16,14 @@ $user->email = $_SESSION['user']['email'];
 $user->pwd = $_SESSION['user']['pwd'];
 $user->role = $_SESSION['user']['role'];
 
+$success = "";
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["modifier"])) {
   $user->modifierProfil($_POST["nom"], $_POST["email"], $_POST["pwd"]);
   $_SESSION['user']['nom'] = $_POST["nom"];
   $_SESSION['user']['email'] = $_POST["email"];
   $_SESSION['user']['pwd'] = $_POST["pwd"];
-  echo "<p>mise a jour avec succès</p>";
+  $success = "Profil mis à jour avec succès";
 }
 ?>
 
@@ -34,11 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["modifier"])) {
 <body>
   <header class="header">
     <div class="container nav-container">
-      <div class="logo">Book<span>Store</span></div>
+        <a href="home.php" class="logo-link">
+                <div class="logo">
+                    Book<span>Store</span>
+                </div>
+            </a>
       <nav class="nav">
         <a href="home.php">Accueil</a>
         <a href="livres.php">Liste des livres</a>
-        <a href="../panier.php">Panier 🛒</a>
+        <a href="panier.php">Panier 🛒</a>
         <div class="dropdown">
           <span>Front Office ▾</span>
           <div class="dropdown-menu">
@@ -58,6 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["modifier"])) {
         <input type="email" name="email" value="<?php echo $user->email; ?>" required>
         <input type="password" name="pwd" value="<?php echo $user->pwd; ?>" required>
         <button type="submit" name="modifier">Modifier</button>
+        <?php if ($success): ?>
+          <div class="msg-success"><?= $success ?></div>
+        <?php endif; ?>
       </form>
     </div>
   </section>

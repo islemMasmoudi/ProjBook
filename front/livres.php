@@ -35,16 +35,20 @@ $res = $p->listerProd();
 <body>
   <header class="header">
     <div class="container nav-container">
-      <div class="logo">Book<span>Store</span></div>
+        <a href="home.php" class="logo-link">
+                <div class="logo">
+                    Book<span>Store</span>
+                </div>
+            </a>
       <nav class="nav">
         <a href="home.php">Accueil</a>
         <a href="livres.php">Liste des livres</a>
-        <a href="../panier.php">Panier 🛒</a>
+        <a href="panier.php">Panier 🛒</a>
         <div class="dropdown">
           <span>Front Office ▾</span>
           <div class="dropdown-menu">
             <a href="profil.php">Profil</a>
-            htmlspecialchars <a href="guest.html">Déconnecter</a>
+            <a href="guest.html">Déconnecter</a>
           </div>
         </div>
       </nav>
@@ -61,7 +65,7 @@ $res = $p->listerProd();
             <h3><?php echo ($row['titre']); ?></h3>
             <p><?php echo htmlspecialchars($row['auteur']); ?></p>
             <span><?php echo htmlspecialchars($row['prix']); ?> DT</span>
-            <form method="post" action="../panier.php">
+            <form method="post" action="panier.php">
               <input type="hidden" name="id_produit" value="<?= $row['id'] ?>">
               <input type="hidden" name="title" value="<?php echo htmlspecialchars($row['titre']); ?>">
               <input type="hidden" name="price" value="<?php echo htmlspecialchars($row['prix']); ?>">
