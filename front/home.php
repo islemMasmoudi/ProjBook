@@ -56,8 +56,7 @@ $res = $p->listerProd();
               <input type="hidden" name="title" value="<?php echo $row['titre']; ?>">
               <input type="hidden" name="price" value="<?php echo $row['prix']; ?>">
               <input type="hidden" name="image" value="<?php echo $row['image']; ?>">
-              <button type="submit" name="add">Ajouter au panier</button><br>
-              <button type="submit" name="cmd">Commander</button>
+
             </form>
           </div>
         </div>

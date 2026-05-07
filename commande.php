@@ -9,40 +9,11 @@ if (!isset($_SESSION["panier"])) {
   $_SESSION["panier"] = [];
 }
 
-// Book catalog
-$catalogue = [
-  "Atomic Habits" => ["price" => 30, "image" => "https://images.unsplash.com/photo-1544947950-fa07a98d237f"],
-  "The Alchemist" => ["price" => 25, "image" => "https://images.unsplash.com/photo-1512820790803-83ca734da794"],
-  "Rich Dad Poor Dad" => ["price" => 28, "image" => "https://images.unsplash.com/photo-1495446815901-a7297e633e8d"],
-  "Think and Grow Rich" => ["price" => 27, "image" => "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f"],
-  "Deep Work" => ["price" => 32, "image" => "https://images.unsplash.com/photo-1519681393784-d120267933ba"],
-  "Start With Why" => ["price" => 29, "image" => "https://images.unsplash.com/photo-1516979187457-637abb4f9353"],
-];
 
 $erreur = "";
 $succes = "";
 
-if (isset($_POST["valider"])) {
-  $nom_livre = trim($_POST["nom_livre"]);
-  $quantite = (int) $_POST["quantite"];
 
-  if ($nom_livre === "" || $quantite < 1) {
-    $erreur = "Veuillez remplir tous les champs correctement.";
-  } elseif (!isset($catalogue[$nom_livre])) {
-    $erreur = "Livre introuvable dans le catalogue.";
-  } else {
-    $book = $catalogue[$nom_livre];
-    for ($i = 0; $i < $quantite; $i++) {
-      $_SESSION["panier"][] = [
-        "title" => $nom_livre,
-        "price" => $book["price"],
-        "image" => $book["image"]
-      ];
-    }
-    header("Location: panier.php");
-    exit();
-  }
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">

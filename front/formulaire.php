@@ -15,7 +15,7 @@ $pdo = $cnx->CNXbase();
 
 
 if (isset($_POST["annuler"])) {
-    header("Location: panier.php");
+    header("Location: home.php");
     exit();
 }
 
@@ -45,7 +45,7 @@ if (isset($_POST["ok"])) {
 
     unset($_SESSION["panier"]);
 
-    header("Location: success.php");
+    header("Location: home.php");
     exit();
 }
 ?>
@@ -112,10 +112,10 @@ if (isset($_POST["ok"])) {
 
         <h2>Validation commande</h2>
 
-        <form method="POST" action="home.php">
+        <form method="POST">
 
-            <input type="text" name="nom" placeholder="Nom client" required>
-            <textarea name="adresse" placeholder="Adresse" required></textarea>
+            <input type="text" name="nom" placeholder="Nom client">
+            <textarea name="adresse" placeholder="Adresse"></textarea>
 
             <h3>Résumé panier</h3>
 

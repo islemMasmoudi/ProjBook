@@ -380,3 +380,43 @@ body {
   color: gray;
 }
 
+
+
+        .container {
+            width: 60%;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .box {
+            background: #eee;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .ok {
+            background: green;
+            color: white;
+        }
+
+        .cancel {
+            background: red;
+            color: white;
+        }
