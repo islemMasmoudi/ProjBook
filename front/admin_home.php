@@ -58,12 +58,11 @@ if (!isset($_SESSION["connecte"]) || $_SESSION['user']['role'] != 'admin') {
   <div class="dashboard-grid">
 
     <div class="dashboard-card">
-      <div class="dashboard-icon">📚</div>
 
       <h3>Gestion des livres</h3>
 
       <p>
-        Ajouter ou supprimer
+        Ajouter,modifier ou supprimer
         des livres du catalogue.
       </p>
 

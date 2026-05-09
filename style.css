@@ -1,11 +1,10 @@
 :root {
-  --primary: #86755c;
-  --secondary: #ede0d4;
-  --accent: #c8b6a6;
-  --bg: #f8f5f2;
-  --text: #3e3e3e;
+  --primary: #8b7d6b;   
+  --secondary: #d9cbb3; 
+  --accent: #c2b280;    
+  --bg: #fdfcf7;        
+  --text: #2d2d2d;      
 }
-
 
 * {
   margin: 0;
@@ -222,7 +221,7 @@ body {
 .form-box button {
   width: 100%;
   padding: 12px;
-  background: #d6c1a3;
+  background: #c5b59f;
   border: none;
   color: white;
   border-radius: 10px;
@@ -232,7 +231,7 @@ body {
 }
 
 .form-box button:hover {
-  background: #c8b6a6;
+  background: #9d8875;
 }
 
 .form-link {
@@ -697,7 +696,7 @@ body {
   margin-bottom: 40px;
 }
 
-.delete-btn {
+.delete-btn  {
   display: inline-block;
 
   margin-top: 15px;
@@ -724,6 +723,7 @@ body {
 .delete-btn:hover {
   background: #c0392b;
 }
+
 
 
 .form-box {
@@ -942,5 +942,25 @@ input[type="number"] {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(224, 123, 57, 0.35);
 }
+
+a.modif-btn {
+  display: inline-block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  text-align: center;
+  border-radius: 14px;
+  background: var(--primary);
+  color: #fff !important;   /* force white text */
+  text-decoration: none !important; /* remove underline */
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+a.modif-btn:hover {
+  background: var(--accent);
+}
+
+
 /************************************************************************************/
 

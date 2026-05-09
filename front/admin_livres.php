@@ -10,10 +10,16 @@ require_once('../classes/Produit.php');
 $p=new Produit();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["ajouter"])) {
-    $p->ajouterProd($_POST["titre"], $_POST["auteur"], $_POST["prix"], $_POST["image"], $_POST["description"]);
+    $image=__DIR__ . "/../images/".$_FILES["image"]["name"];
+    move_uploaded_file(
+      $_FILES["image"]["tmp_name"],
+      $image
+    );
+    $p->ajouterProd($_POST["titre"], $_POST["auteur"], $_POST["prix"],$image, $_POST["description"],$_POST["stock"]);
     header("Location: admin_livres.php");
     exit();
 }
+
 if (isset($_GET["delete"])) {
     $p->supprimeProd($_GET["delete"]);
     header("Location: admin_livres.php");
@@ -52,7 +58,7 @@ $res=$p->listerProd();
     <h1>Gestion des livres</h1>
 
     <p>
-      Ajoutez et supprimez les livres du catalogue.
+      Ajoutez, modifiez et supprimez les livres du catalogue.
     </p>
   </div>
 
@@ -63,12 +69,13 @@ $res=$p->listerProd();
   <section class="admin-form-section container">
   <div class="admin-form-card">
     <h2>Ajouter un livre</h2>
-    <form method="POST" action="" class="admin-form">
+    <form method="POST" action="" class="admin-form" enctype="multipart/form-data">
       <div class="form-grid">
         <input type="text" name="titre" placeholder="Titre" required>
         <input type="text" name="auteur" placeholder="Auteur" required>
         <input type="text" name="prix" placeholder="Prix" required>
-        <input type="text" name="image" placeholder="URL image" required>
+        <input type="file" name="image" placeholder="Parcourir">
+        <input type="number" name="stock" placeholder="stock" required>
         <textarea name="description" placeholder="Description"></textarea>
         <button type="submit" name="ajouter">Ajouter</button>
         </div>
@@ -81,11 +88,15 @@ $res=$p->listerProd();
     <div class="grid">
       <?php foreach ($res as $row): ?>
         <div class="card">
-          <img src="<?php echo $row['image']; ?>">
+          <img src="<?php echo (strpos($row['image'], 'http') === 0) 
+          ? $row['image'] 
+          : '../'.$row['image']; ?>">
           <div class="card-body">
             <h3><?php echo $row['titre']; ?></h3>
             <p><?php echo $row['auteur']; ?></p>
             <span><?php echo $row['prix']; ?> DT</span>
+            <a href="modif_admin_livre.php?id=<?php echo $row['id']; ?>" class="modif-btn" style="display:inline-block;
+            margin-top:15px; width:100%; text-align:center; padding:12px; border-radius:14px; background:#e74c3c; color:white; text-decoration:none; font-weight:600; transition:all 0.3s ease;">Modifier</a> 
             <a href="admin_livres.php?delete=<?php echo $row['id']; ?>" class="delete-btn">Supprimer</a>
           </div>
         </div>
