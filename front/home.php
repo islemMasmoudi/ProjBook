@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../classes/Produit.php');
+require_once('../classes/Panier.php');
 
 if (!isset($_SESSION["connecte"])) {
   header("Location: login.php");
@@ -22,14 +23,15 @@ if (!isset($_SESSION["panier"])) {
 
 $message = null;
 
+$panier = new Panier();
+
 if (isset($_POST["add"])) {
-  $_SESSION["panier"][] = [
-    "id_produit" => $_POST["id_produit"],
-    "titre" => $_POST["title"],
-    "prix" => $_POST["price"],
-    "image" => $_POST["image"],
-    "quantite" => 1
-  ];
+    $panier->ajouter(
+        $_POST["id_produit"],
+        $_POST["title"],
+        $_POST["price"],
+        $_POST["image"]
+    );
 
   $message = "Livre ajouté au panier";
 }

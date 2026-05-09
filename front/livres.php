@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+require_once('../classes/Produit.php');
+require_once('../classes/Panier.php');
+
 if (!isset($_SESSION["connecte"])) {
   header("Location: login.php");
   exit();
@@ -9,34 +12,25 @@ if (!isset($_SESSION["panier"])) {
   $_SESSION["panier"] = [];
 }
 
-require_once('../classes/Produit.php');
-require_once('../classes/Panier.php');
-
-
-
-$message = null;
+$panier = new Panier();
 if (isset($_POST["add"])) {
+    $panier->ajouter(
+        $_POST["id_produit"],
+        $_POST["title"],
+        $_POST["price"],
+        $_POST["image"]
+    );
 
-  $_SESSION["panier"][] = [
-    "id_produit" => $_POST["id_produit"],
-    "titre" => $_POST["title"],
-    "prix" => $_POST["price"],
-    "image" => $_POST["image"],
-    "quantite" => 1
-  ];
-
-  $_SESSION["success_panier"] = "Livre ajouté au panier";
-
-  header("Location: livres.php");
-  exit();
-
+    $_SESSION["msg"] = "Livre ajouté au panier";
+    header("Location: livres.php");
+    exit();
 }
-
-
 
 $p = new Produit();
 $res = $p->listerProd();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -87,7 +81,7 @@ $res = $p->listerProd();
             <h3><?php echo ($row['titre']); ?></h3>
             <p><?php echo $row['auteur']; ?></p>
             <span><?php echo $row['prix']; ?> DT</span>
-            <form method="post" action="livres.php">
+            <form method="post" action="">
               <input type="hidden" name="id_produit" value="<?= $row['id'] ?>">
               <input type="hidden" name="title" value="<?php echo $row['titre']; ?>">
               <input type="hidden" name="price" value="<?php echo $row['prix']; ?>">

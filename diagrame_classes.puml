@@ -1,0 +1,56 @@
+@startuml class
+
+class Produit {
+    +id
+    +titre
+    +auteur
+    +prix
+    +image
+    +desc
+    +stock
+
+    +ajouterProd(titre, auteur, prix, image, desc, stock)
+    +listerProd()
+    +supprimerProd(id)
+    +selectLivre(id)
+    +modifierProd(id, titre, auteur, prix, image, desc, stock)
+}
+
+class Utilisateur {
+    +id
+    +nom
+    +email
+    +pwd
+    +role
+
+    +inscrire()
+    +connecter(email, pwd)
+    +modifierProfil(nom, email, pwd)
+}
+
+class Panier {
+    +ajouter(id, titre, prix, image)
+    +supprimer(index)
+    +paniertotal()
+}
+
+class Commande {
+    +id
+    +nom_client
+    +adresse
+    +produit
+    +quantite
+    +prix
+    +date
+
+    +ajouter()
+}
+
+Utilisateur "0..* " -- "1..* " Produit : consulter
+Utilisateur "1..* \nAdmin" -- "0..*" Produit : gérer
+
+Utilisateur "  1" -- "  1" Panier : possède
+Panier "1"-- "0..*"Commande : génère
+Panier "0..*"-- "0..*" Produit : contient
+
+@enduml

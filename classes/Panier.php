@@ -2,84 +2,43 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 class Panier
 {
-    public function ajouterProduit($titre, $prix, $image)
+    public function ajouter($id, $titre, $prix, $image)
     {
-        if (!isset($_SESSION['panier'])) {
-            $_SESSION['panier'] = [];
+        if (!isset($_SESSION["panier"])) {
+            $_SESSION["panier"] = [];
         }
 
-        $produitExiste = false;
-
-        foreach ($_SESSION['panier'] as &$produit) {
-            if ($produit['titre'] == $titre) {
-                $produit['quantite']++;
-                $produitExiste = true;
-                break;
+        foreach ($_SESSION["panier"] as &$item ) {
+            if (isset($item["id_produit"]) && $item["id_produit"] == $id) {
+                $item["quantite"]++;
+                return;
             }
         }
 
-        if (!$produitExiste) {
-            $_SESSION['panier'][] = [
-                'titre' => $titre,
-                'prix' => $prix,
-                'image' => $image,
-                'quantite' => 1
-            ];
+        $_SESSION["panier"][] = [
+            "id_produit" => $id,
+            "titre" => $titre,
+            "prix" => $prix,
+            "image" => $image,
+            "quantite" => 1
+        ];
+    }
+
+    public function supprimer($index)
+    {
+        unset($_SESSION["panier"][$index]);
+        $_SESSION["panier"] = array_values($_SESSION["panier"]);
+    }
+
+    public function paniertotal()
+    {
+        $total = 0;
+        foreach ($_SESSION["panier"] ?? [] as $item) {
+            $total += $item["prix"] * $item["quantite"];
         }
+        return $total;
     }
 }
-
-if (!isset($_SESSION["connecte"])) {
-    header("Location: front/login.php");
-    exit();
-}
-
-if (isset($_POST['add'])) {
-    $panier = new Panier();
-    $panier->ajouterProduit($_POST['title'], $_POST['price'], $_POST['image']);
-    header("Location: panier.php");
-    exit();
-}
-
-if (isset($_POST["valider"])) {
-
-    $nom_livre = trim($_POST["nom_livre"]);
-    $quantite = (int) $_POST["quantite"];
-
-    if ($nom_livre === "" || $quantite < 1) {
-
-        $erreur = "Veuillez remplir tous les champs correctement.";
-
-    } elseif (!isset($catalogue[$nom_livre])) {
-
-        $erreur = "Livre introuvable dans le catalogue.";
-
-    } else {
-
-        $book = $catalogue[$nom_livre];
-
-        for ($i = 0; $i < $quantite; $i++) {
-
-            $_SESSION["panier"][] = [
-                "titre" => $nom_livre,
-                "prix" => $book["price"],
-                "image" => $book["image"],
-                "quantite" => 1
-            ];
-        }
-
-        header("Location: panier.php");
-        exit();
-    }
-}
-
-if (isset($_POST['remove']) && isset($_POST['index'])) {
-
-    array_splice($_SESSION['panier'], (int) $_POST['index'], 1);
-
-    header("Location: panier.php");
-    exit();
-}
-?>

@@ -2,6 +2,14 @@
 session_start();
 require_once('../classes/Panier.php');
 
+$panier = new Panier();
+
+if (isset($_POST["remove"])) {
+    $panier->supprimer($_POST["index"]);
+    header("Location: panier.php");
+    exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -62,10 +70,7 @@ require_once('../classes/Panier.php');
             </div>
 
             <?php
-            $total = 0;
-            foreach ($_SESSION["panier"] as $item) {
-                $total += $item["prix"] * $item["quantite"];
-            }
+            $total = $panier->paniertotal();
             ?>
             <div class="panier-total">
                 Total : <?= number_format($total, 2) ?> DT
