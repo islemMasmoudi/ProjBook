@@ -961,6 +961,19 @@ a.modif-btn:hover {
   background: var(--accent);
 }
 
+.msg-success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 12px 15px;
+  margin: 15px auto;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
 
 /************************************************************************************/
 

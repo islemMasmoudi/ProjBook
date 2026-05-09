@@ -26,7 +26,7 @@ require_once('../classes/Panier.php');
                 <a href="livres.php">Liste des livres</a>
                 <a href="panier.php">Panier 🛒</a>
                 <div class="dropdown">
-                    <span>Front Office ▾</span>
+                    <span>Paramètres ▾</span>
                     <div class="dropdown-menu">
                         <a href="profil.php">Profil</a>
                         <a href="guest.html">Déconnecter</a>
@@ -45,14 +45,16 @@ require_once('../classes/Panier.php');
             <div class="panier-grid">
                 <?php foreach ($_SESSION["panier"] as $index => $item): ?>
                     <div class="panier-card">
-                        <img src="<?= htmlspecialchars($item["image"]) ?>" alt="<?= htmlspecialchars($item["titre"]) ?>">
+                        <img src="<?php echo (strpos($item['image'], 'http') === 0) 
+                        ? $item['image'] 
+                        : '../'.$item['image']; ?>">
                         <div class="panier-card-body">
-                            <h3><?= htmlspecialchars($item["titre"]) ?></h3>
-                            <span class="price"><?= htmlspecialchars($item["prix"]) ?> DT</span>
+                            <h3><?= $item["titre"]?></h3>
+                            <span class="price"><?= $item["prix"]?> DT</span>
                             <span class="qty">Quantité : <?= (int) $item["quantite"] ?></span>
                             <form method="POST">
                                 <input type="hidden" name="index" value="<?= $index ?>">
-                                <button class="btn-remove" name="remove">🗑 Supprimer</button>
+                                <button class="btn-remove" name="remove">Supprimer</button>
                             </form>
                         </div>
                     </div>

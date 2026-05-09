@@ -11,9 +11,27 @@ $p = new Produit();
 $res = $p->listerProd();
 
 
-if (isset($_SESSION["success"])) {
-    echo "<div class='msg-success'>" . $_SESSION["success"] . "</div>";
-    unset($_SESSION["success"]);
+if (isset($_SESSION["success_achat"])) {
+    echo "<div class='msg-success'>" . $_SESSION["success_achat"] . "</div>";
+    unset($_SESSION["success_achat"]);
+}
+
+if (!isset($_SESSION["panier"])) {
+  $_SESSION["panier"] = [];
+}
+
+$message = null;
+
+if (isset($_POST["add"])) {
+  $_SESSION["panier"][] = [
+    "id_produit" => $_POST["id_produit"],
+    "titre" => $_POST["title"],
+    "prix" => $_POST["price"],
+    "image" => $_POST["image"],
+    "quantite" => 1
+  ];
+
+  $message = "Livre ajouté au panier";
 }
 
 
@@ -43,7 +61,7 @@ if (isset($_SESSION["success"])) {
         <a href="panier.php">Panier 🛒</a>
 
         <div class="dropdown">
-          <span>Front Office ▾</span>
+          <span>Paramètres ▾</span>
           <div class="dropdown-menu">
             <a href="profil.php">Profil</a>
             <a href="guest.html">Déconnecter</a>
@@ -70,12 +88,15 @@ if (isset($_SESSION["success"])) {
         <?php if ($i == 4)
           break; ?>
         <div class="card">
-          <img src="<?php echo $row['image']; ?>">
+          <img src="<?php echo (strpos($row['image'], 'http') === 0) 
+          ? $row['image'] 
+          : '../'.$row['image']; ?>">
           <div class="card-body">
             <h3><?php echo $row['titre']; ?></h3>
             <p><?php echo $row['auteur']; ?></p>
             <span><?php echo $row['prix']; ?> DT</span>
-            <form method="post" action="panier.php">
+            <form method="post" action="">
+              <input type="hidden" name="id_produit" value="<?= $row['id'] ?>">
               <input type="hidden" name="title" value="<?php echo $row['titre']; ?>">
               <input type="hidden" name="price" value="<?php echo $row['prix']; ?>">
               <input type="hidden" name="image" value="<?php echo $row['image']; ?>">

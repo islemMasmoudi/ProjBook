@@ -45,7 +45,7 @@ if (isset($_POST["ok"])) {
 
     unset($_SESSION["panier"]);
 
-    $_SESSION["success"] = "Ton ordre est bien enregistré. Le livre sera livré en 24h.";
+    $_SESSION["success_achat"] = "Ton ordre est bien enregistré. Le livre sera livré en 24h.";
 
     header("Location: home.php");
     exit();
@@ -77,7 +77,7 @@ if (isset($_POST["ok"])) {
                 <a href="livres.php">Liste des livres</a>
                 <a href="../panier.php">Panier 🛒</a>
                 <div class="dropdown">
-                    <span>Front Office ▾</span>
+                    <span>Paramètres ▾</span>
                     <div class="dropdown-menu">
                         <a href="profil.php">Profil</a>
                         <a href="guest.html">Déconnecter</a>

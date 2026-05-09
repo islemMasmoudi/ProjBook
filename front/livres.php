@@ -1,13 +1,22 @@
 <?php
 session_start();
+
 if (!isset($_SESSION["connecte"])) {
   header("Location: login.php");
   exit();
 }
+if (!isset($_SESSION["panier"])) {
+  $_SESSION["panier"] = [];
+}
+
 require_once('../classes/Produit.php');
 require_once('../classes/Panier.php');
 
+
+
+$message = null;
 if (isset($_POST["add"])) {
+
   $_SESSION["panier"][] = [
     "id_produit" => $_POST["id_produit"],
     "titre" => $_POST["title"],
@@ -15,6 +24,11 @@ if (isset($_POST["add"])) {
     "image" => $_POST["image"],
     "quantite" => 1
   ];
+
+  $_SESSION["success_panier"] = "Livre ajouté au panier";
+
+  header("Location: livres.php");
+  exit();
 
 }
 
@@ -45,7 +59,7 @@ $res = $p->listerProd();
         <a href="livres.php">Liste des livres</a>
         <a href="panier.php">Panier 🛒</a>
         <div class="dropdown">
-          <span>Front Office ▾</span>
+          <span>Paramètres ▾</span>
           <div class="dropdown-menu">
             <a href="profil.php">Profil</a>
             <a href="guest.html">Déconnecter</a>
@@ -56,21 +70,30 @@ $res = $p->listerProd();
   </header>
 
   <section class="products container">
+    <?php if (isset($_SESSION["success_panier"])): ?>
+      <div class="msg-success">
+        <?= $_SESSION["success_panier"]; 
+        unset($_SESSION["success_panier"]); ?>
+      </div>
+    <?php endif; ?>
     <h2>Liste des livres</h2>
     <div class="grid">
       <?php foreach ($res as $row): ?>
         <div class="card">
-          <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['titre']); ?>">
+        <img src="<?php echo (strpos($row['image'], 'http') === 0) 
+              ? $row['image'] 
+              : '../'.$row['image']; ?>">
           <div class="card-body">
             <h3><?php echo ($row['titre']); ?></h3>
-            <p><?php echo htmlspecialchars($row['auteur']); ?></p>
-            <span><?php echo htmlspecialchars($row['prix']); ?> DT</span>
-            <form method="post" action="panier.php">
+            <p><?php echo $row['auteur']; ?></p>
+            <span><?php echo $row['prix']; ?> DT</span>
+            <form method="post" action="livres.php">
               <input type="hidden" name="id_produit" value="<?= $row['id'] ?>">
-              <input type="hidden" name="title" value="<?php echo htmlspecialchars($row['titre']); ?>">
-              <input type="hidden" name="price" value="<?php echo htmlspecialchars($row['prix']); ?>">
-              <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
+              <input type="hidden" name="title" value="<?php echo $row['titre']; ?>">
+              <input type="hidden" name="price" value="<?php echo $row['prix']; ?>">
+              <input type="hidden" name="image" value="<?php echo $row['image']; ?>">
               <button type="submit" name="add">Ajouter au panier</button><br>
+        
             </form>
           </div>
         </div>

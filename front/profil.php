@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["modifier"])) {
         <a href="livres.php">Liste des livres</a>
         <a href="panier.php">Panier 🛒</a>
         <div class="dropdown">
-          <span>Front Office ▾</span>
+          <span>Paramètres ▾</span>
           <div class="dropdown-menu">
             <a href="profil.php">Profil</a>
             <a href="guest.html">Déconnecter</a>
